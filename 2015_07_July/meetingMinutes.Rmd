@@ -1,0 +1,22 @@
+# July 2015 Indy UseR group meeting
+
+### Talks given in the meeting:
+
+* Report on 2015 useR conference - Richard Layton
+* Rob Hyndman's forecast package - Ben Staiger
+     + [slides](ForecastPresentation_BenStaiger.pptx)
+     + Forecasting: Principles and Practice ([Online book](https://www.otexts.org/fpp))
+
+### Other topics discussed:
+
+R learning resources
+
+* Coursera [data science specialization](https://www.coursera.org/specialization/jhudatascience/1/courses) track courses
+* Udacity course [Data Analysis with R](https://www.udacity.com/course/data-analysis-with-r--ud651)
+* [Data Camp](https://www.datacamp.com/) introductory R courses
+
+Interesting links shared by members:
+
+* So you want to be a data scientist [link](http://www.datasciencecentral.com/profiles/blogs/so-you-want-to-be-a-data-scientist)
+* Aggregating soil data [link](http://casoilresource.lawr.ucdavis.edu/software/r-advanced-statistical-package/aggregating-ssurgo-data-r/)
+* An important read on reproducible research. "To Throw Away Data: Plagiarism as a Statistical Crime" [link] (http://www.stat.columbia.edu/~gelman/research/published/GelmanBasbollAmericanScientist.pdf)
