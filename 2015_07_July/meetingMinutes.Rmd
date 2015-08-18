@@ -2,7 +2,7 @@
 
 ### Talks given in the meeting:
 
-* Report on 2015 useR conference - Richard Layton
+* Report on 2015 useR conference - Richard Layton ([slides](layton-talk-Indy-useR-2015-07-21.pdf))
 * Rob Hyndman's forecast package - Ben Staiger
      + [slides](ForecastPresentation_BenStaiger.pptx)
      + Forecasting: Principles and Practice ([Online book](https://www.otexts.org/fpp))
