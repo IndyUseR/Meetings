@@ -1,0 +1,8 @@
+# August 2015 Indy UseR group meeting
+
+### Talks given at the meeting
+
+* 3D Interactive Scatterplots by J. D. Freeman
+     +  Link to files ([R code](3D.R), [pdf plot](plot.pdf), [png plot](plot.png))
+* R markdown by Richard Layton
+     +  Presentation [link](https://github.com/graphdr/starting-with-Rmd)
