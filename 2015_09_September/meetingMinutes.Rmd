@@ -1,0 +1,6 @@
+# September 2015 Indy UseR group meeting
+
+### Talks given at the meeting
+
+* reshape and reshape2 packages by Adrian Katschke [link to files](reshapeTalk/)
+    
