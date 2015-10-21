@@ -1,0 +1,6 @@
+# October 2015 Indy UseR group meeting
+
+### Talks given at the meeting
+
+* Big Data Processing with Apache Spark and R by Hao Lin (Purdue University) [link to files](sparkR_October/)
+    
