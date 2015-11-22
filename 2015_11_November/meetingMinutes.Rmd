@@ -1,0 +1,8 @@
+# November 2015 Indy UseR group meeting
+
+### Talks given at the meeting
+
+* Typical Excel Tasks in R by Stuart Ward (*link will be coming soon*)
+* Demo of a Shiny App that analyzes sentiments and produces a word cloud of sentiments by J. D. Freeman
+     + [Link](https://github.com/JD-Freeman/Sentiment-Analysis-Showdown) to sentiment showdown between R and Python by J. D. Freeman
+    
