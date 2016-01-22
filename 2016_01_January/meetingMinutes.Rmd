@@ -2,7 +2,7 @@
 
 ### Talk/Discussion at the meeting
 
-* Presentation topics were discussed. A running list is available at the following link
-* Presentation on web scraping with rvest package - Shankar (link to files)
+* Presentation topics were discussed. A running list is available at the following ([link](https://github.com/IndyUseR/Meetings/blob/master/topicsRunningList_2016.Rmd))
+* Presentation on web scraping with rvest package - Shankar ([link](rvest_talk.Rmd))
 
     
