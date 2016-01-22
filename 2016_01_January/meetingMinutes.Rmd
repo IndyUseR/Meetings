@@ -1,0 +1,8 @@
+# January 2016 Indy UseR group meeting
+
+### Talk/Discussion at the meeting
+
+* Presentation topics were discussed. A running list is available at the following link
+* Presentation on web scraping with rvest package - Shankar (link to files)
+
+    
