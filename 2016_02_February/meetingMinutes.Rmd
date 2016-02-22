@@ -1,0 +1,9 @@
+# February 2016 Indy UseR group meeting
+
+### Talk/Discussion at the meeting
+
+*  Book Overview by Cory Lesmeister: 
+
+      + [Mastering Machine Learning with R - Cory Lesmeister](https://www.packtpub.com/big-data-and-business-intelligence/mastering-machine-learning-r) (link coming soon)
+
+    
