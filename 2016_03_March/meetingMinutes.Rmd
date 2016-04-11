@@ -1,0 +1,9 @@
+# March 2016 Indy UseR group meeting
+
+### Talk/Discussion at the meeting
+
+*  System configuration and development of R in Jupyter Notebook 
+
+      + Talk by Matt Gillam  (link coming soon)
+
+    
