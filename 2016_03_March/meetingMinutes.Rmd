@@ -4,6 +4,6 @@
 
 *  System configuration and development of R in Jupyter Notebook 
 
-      + Talk by Matt Gillam  (link coming soon)
+      + Talk by Matt Gillam [link](https://github.com/mpgilliam/System_configuration_and_development_of_R_in_Jupyter_Notebook)
 
     
