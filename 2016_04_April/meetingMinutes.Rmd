@@ -1,0 +1,9 @@
+# April 2016 Indy UseR group meeting
+
+### Talk/Discussion at the meeting
+
+*  Power BI and R Demo (Using R and Power BI to Analyze the United States Trade Balance with Other Countries) 
+
+      + Talk by Ryan Wade ([link](https://github.com/DieselAnalytics/Demo_PowerBI_R_TradeBalance))
+
+    
