@@ -1,0 +1,9 @@
+# May 2016 Indy UseR group meeting
+
+### Talk/Discussion at the meeting
+
+*  Big Molecules Meet Big Data: Predicting Protein Tertiary Structure from Combinatorial Chemistry Data
+
+      + Talk by Stan Siranovich ([youtube video](https://www.youtube.com/watch?v=V_4YjTfGMx4&feature=youtu.be)),([R code](https://github.com/ccStan/Springboard_Capstone/blob/master/Final.R))
+
+    
