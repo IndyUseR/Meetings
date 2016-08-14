@@ -1,0 +1,9 @@
+# June 2016 Indy UseR group meeting
+
+### Talk/Discussion at the meeting
+
+*  Leveraging Weather Data in R
+
+      + Talk by Adam Simkowski (*link coming soon*)
+
+    

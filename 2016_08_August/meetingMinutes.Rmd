@@ -1,0 +1,9 @@
+# August 2016 Indy UseR group meeting
+
+### Talk/Discussion at the meeting
+
+*  Using dplyr with data in snowflake for analytics with R
+
+      + Talk by Matt Gillam (*link coming soon*)
+
+    
