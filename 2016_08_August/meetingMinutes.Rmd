@@ -2,8 +2,8 @@
 
 ### Talk/Discussion at the meeting
 
-*  Using dplyr with data in snowflake for analytics with R
+*  Presentation about Feather
 
-      + Talk by Matt Gillam (*link coming soon*)
+      + Talk by Matt Gillam ([link to files](https://github.com/mpgilliam/Feather_presentation))
 
     
