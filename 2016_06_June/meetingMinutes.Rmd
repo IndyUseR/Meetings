@@ -4,6 +4,6 @@
 
 *  Leveraging Weather Data in R
 
-      + Talk by Adam Simkowski (*link coming soon*)
+      + Talk by Adam Simkowski ([files used during talk](files/))
 
     
