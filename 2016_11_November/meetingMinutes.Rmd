@@ -1,0 +1,8 @@
+# November 2016 Indy UseR group meeting
+
+
+### Predicting NBA Games using SQL R Services - Ryan Wade ([link to presentation](https://github.com/DieselAnalytics/Predicting_NBA_Games/))
+
+Due to projector issues, Ryan was not able to go through the material he was planning to present but led a discussion around how doing analytics in SQL server with R works. The link above is the material he was planning to present.
+
+    
