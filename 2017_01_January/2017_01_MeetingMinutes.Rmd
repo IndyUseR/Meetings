@@ -1,0 +1,25 @@
+
+# January 2017 Meetup - Meeting Minutes
+
+## General Discussion on Meetup Direction
+
+There was discussion on format and potential content for the meetings. Below are the suggestions that were discussed:
+
+*  Recording presentations for future viewing. 
+*  Have format of each meeting to include the following:
+  +  Tuesday Trivia (Trivia related to R)
+  +  Package of the Month: Pick a package for each month to briefly discuss
+  +  Share work in progress code: This is to encourage group members to be comfortable sharing *work in process code* for a problem they are trying to solve. 
+* Try to get external speakers for some meetups
+* Have the format to be more hands-on where people follow along and do stuff on the computer during the meetup
+
+A few topics of interest for discussed for future meetups were:
+
+* Github introduction
+* Package management, moving stuff to CRAN
+* Power BI/R
+* Setup of Amazon AWS/Azure
+* Setting up Shiny Server
+
+
+
