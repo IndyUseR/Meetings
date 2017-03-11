@@ -1,0 +1,27 @@
+
+# February 2017 Meetup - Meeting Minutes
+
+## FREDcast
+#### *Matt Gilliam*
+
+Matt discussed about FREDcast (St. Louis Fed's economic forecasting game) and how this could be an ongoing monthly activity where members of meetup try forecasting four economic series (Gross Domestic Product (GDP), Consumer Price Index (CPI), Unemployment Rate, Payroll Employment). You can find some information and documentation at the following [location](https://github.com/IndyUseR/FREDcast_game)
+
+## Webscraping
+#### *Ezra Birt*
+
+Ezra walked us through different ways of scraping websites and certain etiquettes to follow while doing so. His code is in the following location (link coming soon)
+
+## R Trivia
+#### *Vijay Lulla*
+
+Vijay walked through some R commands. 
+
+## Exploring htmlWidgets
+#### *Shankar Vaidyaraman*
+
+The htmlWidgets [dygraphs](https://cran.r-project.org/web/packages/dygraphs/index.html) and [timevis](https://cran.r-project.org/web/packages/timevis/index.html) were explored. 
+
+*  dygraphs was explored using dataset of CRAN packages. ([code](https://github.com/notesofdabbler/explore_htmlWidgets/blob/master/explore_CRAN/exploreCRAN.R))
+*  timeVis was explore using the following data/timelines.
+      +  Top baby names over time based on [US Baby Names dataset](https://www.kaggle.com/kaggle/us-baby-names). ([code](https://github.com/notesofdabbler/explore_htmlWidgets/blob/master/timevis_USbabyNames/top_USBabyNames_timeline.R))
+      +  Recreation of Walt Disney and Airplane timelines from [timetoast](https://www.timetoast.com/) timeline site. ([shiny app](https://notesofdabbler.shinyapps.io/app_timetoast/), [code for shiny app](https://github.com/notesofdabbler/explore_htmlWidgets/tree/master/timevis_timelines/app_timetoast))
