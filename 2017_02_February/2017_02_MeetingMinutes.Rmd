@@ -9,7 +9,7 @@ Matt discussed about FREDcast (St. Louis Fed's economic forecasting game) and ho
 ## Webscraping
 #### *Ezra Birt*
 
-Ezra walked us through different ways of scraping websites and certain etiquettes to follow while doing so. His code is in the following location (link coming soon)
+Ezra walked us through different ways of scraping websites and certain etiquettes to follow while doing so. His code is in the following location.  [[link](https://github.com/BetterThanEzra/crawlPolitely)]
 
 ## R Trivia
 #### *Vijay Lulla*
