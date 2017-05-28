@@ -4,7 +4,7 @@
 ## Cybersecurity Discussion
 #### *Jamie Buening*
 
-Jamie gave a talk on Cybersecurity titled "Active Defense and Hunting Maturity Model" [link to slides](Active Defense and HMM.pdf)
+Jamie gave a talk on Cybersecurity titled "Active Defense and Hunting Maturity Model" ([link to slides])(ActiveDefenseandHMM.pdf)
 
 ## Overview of R-package: grapes
 #### *Will Landau*
