@@ -1,0 +1,13 @@
+
+# March 2017 Meetup - Meeting Minutes
+
+## FREDcast
+#### *Matt Gilliam*
+
+Matt discussed about FREDcast (St. Louis Fed's economic forecasting game) and shared methodology behind his submission. He again encouraged more to participate in the future.
+
+## R Trivia
+#### *Vijay Lulla*
+
+Vijay walked through some R commands. 
+

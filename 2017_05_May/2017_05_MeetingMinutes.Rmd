@@ -1,0 +1,9 @@
+
+# May 2017 Meetup - Meeting Minutes
+
+## Overview of Julia by a R User
+#### *Vijay Lulla*
+
+Vijay gave a very interesting overview of Julia language from perspective of a R user who also uses Julia. 
+
+

@@ -1,0 +1,14 @@
+
+# April 2017 Meetup - Meeting Minutes
+
+## Cybersecurity Discussion
+#### *Jamie Buening*
+
+Jamie gave a talk on Cybersecurity titled "Active Defense and Hunting Maturity Model" [link to slides](Active Defense and HMM.pdf)
+
+## Overview of R-package: grapes
+#### *Will Landau*
+
+Will talked about his new R-package [grapes](https://cran.r-project.org/web/packages/grapes/index.html) which turns arbitrary functions into binary operators.
+
+
