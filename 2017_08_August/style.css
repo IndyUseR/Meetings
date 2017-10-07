@@ -1,39 +1,4 @@
-aside.gdbar {
-  background: transparent;
+.left {
+  text-align: left;
 }
 
-slides > slide {
-  background-image: url("images/slide-header-background.png");
-  background-size: 100% auto;
-  background-repeat: no-repeat;
-}
-
-slides > slide.title-slide {
-  background-image: url("images/title-background.png");
- // background-position: 100% 0%;
-  background-repeat: no-repeat;
-  background-size: 100% 100%; 
-}
-
-slides > slide.title-slide hgroup h1,
-slides > slide hgroup h2,
-slides > slide hgroup h3,
-slides > slide.title-slide h2,
-slides > slide.title-slide p {
-	color: white;
-}
-
-footer:after {
-    font-size: 10pt;
-    content: attr(label);
-    position: absolute;
-    bottom: 30px;
-    left: 60px;
-    line-height: 1.9;
-    display: block;
-    text-align: right;
-}
-
-slides > slide.title-slide footer {
-  color: white;
-}
