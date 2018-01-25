@@ -1,0 +1,8 @@
+
+# August 2017 Meetup - Meeting Minutes
+
+## Data Frames in R for Make - Will Landau
+
+[Link to Presentation Slides](https://indyuser.github.io/webpg/slides/2017_08_August/drake.html#/)
+
+

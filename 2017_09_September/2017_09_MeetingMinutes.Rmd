@@ -1,0 +1,8 @@
+
+# September 2017 Meetup - Meeting Minutes
+
+## Exploring UN General Debates Kaggle Dataset with R NLP Tools - Shankar
+
+[Link to R code](https://github.com/notesofdabbler/exploreUNDebates/blob/master/explore_UNDebates_tm.R)
+
+
