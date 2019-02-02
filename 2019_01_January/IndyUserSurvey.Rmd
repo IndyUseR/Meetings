@@ -6,7 +6,7 @@ output: html_document
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(warning=FALSE, message=FALSE)
 ```
-This survey had only 13 responses. So it is just as easy to look through the responses from the [raw csv file](IndyUseRSurvey.csv). Also, google forms itself summarizes the responses. The purpose of creating the summary using R is to learn to process the format in which google forms stores survey data using R. 
+This survey had only 13 responses. So it is just as easy to look through the responses from the [raw csv file](https://github.com/IndyUseR/Meetings/blob/master/2019_01_January/IndyUseRSurvey.csv). Also, google forms itself summarizes the responses. The purpose of creating the summary using R is to learn to process the format in which google forms stores survey data using R. 
 
 The following chunk loads the survey data
 ```{r}
