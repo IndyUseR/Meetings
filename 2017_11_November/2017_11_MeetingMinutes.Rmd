@@ -1,0 +1,8 @@
+
+# November 2017 Meetup - Meeting Minutes
+
+## Perspective on Base R and Tidyverse - Stephen
+
+[Link to Presentation Slides](http://ncss-tech.github.io/soil-pit/sandbox/stephen/base_vs_tidyverse_examples.html)
+
+
