@@ -1,0 +1,14 @@
+Survey:
+  
+1. We need a mix of intro and application topics (can we find speakers on these)
+2. Location notes as barrier
+3. Add back zoom meeetings
+4. Trivia? in meetings
+5. R day of training (something to look into)
+6. Wide preference in location (we might look into another location and have some meetups there)
+
+Feb - RStudioConf review - Will/Derek
+RMarkdown/timeseries - Roy
+Shankar
+Presentation on data visualization/data manipulation (ggplot2, dplyr, data.table etc.)
+Application areas. 

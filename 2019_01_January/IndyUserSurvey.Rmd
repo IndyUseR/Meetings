@@ -1,0 +1,69 @@
+---
+title: "Summary of IndyUseR Survey (Jan 2019)"
+output: html_document
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+This survey had only 13 responses. So it is just as easy to look through the responses from the [raw csv file](IndyUseRSurvey.csv). Also, google forms itself summarizes the responses. The purpose of creating the summary using R is to learn to process the format in which google forms stores survey data using R. 
+
+The following chunk loads the survey data
+```{r}
+# Load libraries
+library(tidyverse)
+library(gt)
+
+# load survey data
+surveydf = read_csv("IndyUseRSurvey.csv")
+surveydf
+```
+This format is not convenient to work with. Each respondents answers are across the row. Also, multiple responses to a single question appear in the same field separated by semicolon. Next, I convert the data to a tall format since that is easier to work with.I used the list-column and unnest feature to separate multiple responses to a single question into individual rows.
+```{r}
+# gather all questions/answers in tall format
+surveydf = surveydf %>% select(-Timestamp) %>% mutate(id = seq(1, nrow(surveydf)))
+# split responses where more than one response is given to a question
+surveydf_g = surveydf %>% gather(question, answer, -id)
+surveydf_g = surveydf_g %>% mutate(anssplit = strsplit(answer,";")) %>% unnest(anssplit)
+surveydf_g = surveydf_g %>% mutate(anssplit = str_wrap(anssplit, 30))
+
+# question list
+questions = surveydf_g %>% distinct(question)
+questions = questions$question
+
+surveydf_g
+```
+
+```{r}
+# function to get bar plot for multiple choice questions
+getbarplot = function(quest) {
+  p = ggplot(surveydf_g %>% filter(question == quest) %>% count(anssplit)) + 
+    geom_col(aes(x = fct_reorder(anssplit, n), y = n), width = 0.5, fill = "lightblue") + 
+    xlab("") + ylab("# responses") + 
+    coord_flip() + theme_bw() + ggtitle(str_wrap(quest))
+  return(p)
+}
+```
+
+Next, we get the counts of choices for the multiple choice questions
+```{r}
+barplotq = c(1, 2, 3, 4, 6, 7, 8, 10, 12)
+for(i in barplotq) {
+  p = getbarplot(questions[i])
+  print(p)
+}
+```
+
+Next, we list the reponses to open ended questions and use the awesome new **gt** package to format it nicely
+```{r}
+openrespq = surveydf_g %>% filter(question %in% questions[c(5, 9, 11, 13, 14)]) %>% 
+              filter(!is.na(anssplit)) %>% select(question, anssplit) %>% 
+              rename(response = anssplit)
+openrespq %>% mutate(dummy = "         ") %>% gt(rowname_col = "dummy", groupname_col = "question")
+```
+
+## Session Info
+
+```{r}
+sessionInfo()
+```
