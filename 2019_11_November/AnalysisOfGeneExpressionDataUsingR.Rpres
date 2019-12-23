@@ -1,0 +1,509 @@
+```{r setup, include=FALSE}
+opts_chunk$set(cache=TRUE)
+```
+<style>
+.small-code pre code {
+  font-size: 1em;
+}
+</style>
+Analysis Of RNA-seq Data Using R
+========================================================
+author: Nadia Atallah Lanman
+date: November 19, 2019
+autosize: true
+css: custom.css
+
+Central Dogma of Molecular Biology
+=========================================================
+<div class="midcenter" style="margin-left:-500px; margin-top:-100px;">
+<img src="./AnalysisOfGeneExpressionDataUsingR-figure/centralDogma.png"></img>
+</div>
+
+- By measuring how many mRNA molecules there are for each gene, we can quantify which genes are "on" or "off" 
+
+Why do gene expression analyses?
+========================================================
+
+- Now feasible and simple to measure the expression levels of thousands of genes simultaneously
+- Gene Annotation
+- Functional studies
+- Some molecular features are only seen at RNA level
+
+Several types of gene expression analyses
+========================================================
+
+- qRT-PCR
+- microarray
+- RNA-seq
+  - bulk
+  - single-cell
+
+RNA-Seq
+========================================================
+
+- High-throughput sequencing of RNA
+- Allows for quantification of gene expression and differential expression analyses
+- Characterization of alternative splicing
+- de novo transcriptome assembly
+  - no genome sequence necessary!
+
+Basic RNA-seq Protocol
+========================================================
+<div class="midcenter" style="margin-left:-300px; margin-top:-300px;">
+<img src="./AnalysisOfGeneExpressionDataUsingR-figure/rnaseqProtocol.png"></img>
+</div>
+
+Terminology
+========================================================
+- Reads = the sequenced portion of cDNA fragments
+- Depth= (read length)(number of reads) / (haploid genome length)
+- Single-end= cDNA fragments are sequenced from only one end (1x100)
+- Paired-end= cDNA fragments are sequenced from both ends (2x100)
+- Strand-specific= you know whether the read originated from the + or - strand
+
+FASTQ file format
+=======================================================
+- Raw sequence data generally is in FASTQ format
+  - Text files with both sequence and quality information
+  - Integer scores converted to ASCII characters
+
+$$ Q = -10log_{10}P $$
+<div class="midcenter" style="margin-left:-375px; margin-top:100px;">
+<img src="./AnalysisOfGeneExpressionDataUsingR-figure/fastqRead.png"></img>
+</div>
+
+Basic RNA-seq analysis workflow
+========================================================
+<div class="midcenter" style="margin-left:-350px; margin-top:-300px;">
+<img src="./AnalysisOfGeneExpressionDataUsingR-figure/workflow.png"></img>
+</div>
+
+Install TCGAbiolinks
+=========================================================
+class: small-code
+```{r}
+#install.packages("BiocManager")
+#BiocManager::install("TCGAbiolinks")
+
+library(TCGAbiolinks)
+#citation("TCGAbiolinks")
+```
+- TCGAbiolinks is a package for accessing and doing basic analyses on TCGA (The Cancer Genome Atlas) data.
+- TCGA data surveys over 33 different tumor types
+  - Allows comparisons to be made between cancer and normal tumors
+
+
+Install SummarizedExperiment
+==========================================================
+class: small-code
+```{r}
+#BiocManager::install("SummarizedExperiment")
+
+library(SummarizedExperiment)
+```
+- The SummarizedExperiment Class is a container to store matrices of experimental results and is often used to store gene expression data (as well as other sequencing-related datasets)
+- This container is very helpful in keeping experimental data and meta data in sync
+
+Download TCGA Count Data
+========================================================
+class: small-code
+- Use the Genomic Data Commons to search for TCGA data for prostate cancer
+```{r}
+# Gene expression aligned against hg38
+query.counts <- GDCquery(project = "TCGA-PRAD",
+                  data.category = "Transcriptome Profiling",
+                  data.type = "Gene Expression Quantification", 
+                  workflow.type="HTSeq - Counts")
+GDCdownload(query.counts)
+#read the downloaded data and prepare in into an R object
+data.counts <- GDCprepare(query.counts)
+```
+
+Download TCGA Clinical Data
+========================================================
+class: small-code
+```{r}
+# Biospecimen Data
+query.biospecimen <- GDCquery(project = "TCGA-PRAD",
+                           data.category = "Biospecimen",
+                           file.type = "xml")
+GDCdownload(query.biospecimen)
+prad.biospec <- GDCprepare_clinic(query.biospecimen,clinical.info = "sample")
+#write.csv(prad.biospec, "Biospecimen_prad.csv")
+```
+
+Prepare a count matrix
+========================================================
+class: small-code
+```{r}
+counts <- assay(data.counts, "HTSeq - Counts")
+dim(counts)
+#write.csv(counts, file = "all.prad.htseq.counts.csv")
+coldata<-(colData(data.counts))
+```
+- Genes are in rows and samples are in columns
+- Data is raw counts generated using a program called [HTSeq](https://htseq.readthedocs.io/en/release_0.11.1/)
+
+Sample Barcodes
+========================================================
+class: small-code
+```{r}
+colnames(counts)[1:5]
+```
+- Tumor types range from 01 - 09, normal types from 10 - 19 and control samples from 20 - 29.  See [codes](https://gdc.cancer.gov/resources-tcga-users/tcga-code-tables/sample-type-codes) for more details
+<div class="midcenter" style="margin-left:-375px; margin-top:50px;">
+<img src="./AnalysisOfGeneExpressionDataUsingR-figure/barcode.png"></img>
+</div>
+
+Separate the Samples
+===========================================================
+class: small-code
+- Keep tumor samples only
+```{r}
+tumor.counts <- counts[ , grepl( "-01A" , colnames( counts ) ) ]
+dim(tumor.counts)
+colnames(tumor.counts) <- sapply(strsplit(colnames(tumor.counts), "-"), function(x) paste0(x[1:3], collapse = "-"))
+#write.csv(prad.biospec, "Biospecimen_prad.csv")
+col.gleason<-coldata[!is.na(coldata$subtype_Clinical_Gleason_sum),]
+#write.csv(coldata, "prad.coldata.csv")
+```
+
+Separate the Samples
+===========================================================
+class: small-code
+- Separate the samples into high and low gleason score
+```{r}
+#make matrix of patients with gleason>=8
+hi.gleason <- col.gleason[col.gleason$subtype_Clinical_Gleason_sum >= 8,]
+dim(hi.gleason)
+```
+
+Separate the Samples
+===========================================================
+class: small-code
+- Separate the samples into high and low gleason score
+```{r}
+#make a matrix of patients with gleason<8
+lo.gleason <- col.gleason[col.gleason$subtype_Clinical_Gleason_sum < 8,]
+dim(lo.gleason)
+```
+
+Separate the Samples
+===========================================================
+class: small-code
+```{r}
+#make a count matrix of low and high gleason score patients
+lo.counts<- tumor.counts[,which(colnames(tumor.counts) %in% lo.gleason$bcr_patient_barcode)]
+hi.counts<- tumor.counts[,which(colnames(tumor.counts) %in% hi.gleason$bcr_patient_barcode)]
+dim(lo.counts)
+dim(hi.counts)
+prad.counts<-cbind(lo.counts,hi.counts)
+```
+
+edgeR
+===========================================================
+class: small-code
+```{r}
+#BiocManager::install("edgeR")
+library(edgeR)
+#citation("edgeR")
+library(ggplot2)
+```
+-Originally developed for differential expression analysis of RNA-seq data with biological replication
+  - Can also be used for a variety of count based data genomic data, such as Bisulfite-seq and ChIP-seq
+- Implements statistical methods based on the negative binomial distribution as a model for count variability
+  - Includes empirical Bayes methods, exact test, and GLMs
+
+Remove zero count genes
+===========================================================
+class: small-code
+```{r}
+countsNozero=prad.counts[rowSums(prad.counts)!=0,]
+dim(prad.counts)
+dim(countsNozero)
+```
+
+Prepare sample information
+==========================================================
+class: small-code
+```{r}
+samples <- data.frame(row.names=colnames(countsNozero),
+                      Type=as.factor(c(rep("low", dim(lo.counts)[2]),rep("high",dim(hi.counts)[2]))))
+```
+
+Set up experimental design specifications
+==========================================================
+class: small-code
+```{r}
+Type <- factor(samples$Type)
+design<-model.matrix(~0+Type)
+colnames(design)<-levels(Type)
+```
+
+Set up DGE list and filter genes
+===========================================================
+class: small-code
+```{r}
+d.filt <- DGEList(counts=countsNozero,group=Type)
+# Filter out low expression genes, and readjust lib sizes 
+keep <- rowSums(cpm(d.filt)>1) >= 1
+d.filt <- d.filt[keep, , keep.lib.sizes=FALSE]
+dim(d.filt)
+```
+
+Look at library sizes
+==========================================================
+class: small-code
+- The RNA that was sequenced is called the "RNA library"
+- Library size is the total number of mapped reads
+```{r fig.align="center", fig.width=6,fig.height=6}
+barplot(d.filt$samples$lib.size*1e-6, ylab="Library size (millions)")
+```
+
+
+Normalize the Data
+===========================================================
+class: small-code
+```{r}
+# Calculate normalization factors to scale the library 
+d.filt <- calcNormFactors(d.filt)
+# Estimate common, trended, and then tagwise dispersions in one run
+d.filt <- estimateDisp(d.filt, design)
+```
+
+plot the biological coefficient of variation
+==========================================================
+class: small-code
+```{r fig.align="center"}
+plotBCV(d.filt)
+```
+
+Make an MDS plot
+===========================================================
+class: small-code
+```{r fig.align="center"}
+plotMDS(d.filt, pch = 16, labels = as.numeric(samples$Type))
+mds <- plotMDS(d.filt)
+plot(mds,pch = 16, col= samples$Type, xlab = "dim1",ylab = "dim2")
+```
+- x- and y-axes will be representative of Euclidean distances between your samples.
+- These Euclidean distances will be produced/repeated across multiple dimensions in different ways
+
+Differential Expression Analysis
+===========================================================
+class: small-code
+```{r}
+#the first group is baseline
+et<-exactTest(d.filt,c("low","high"))
+topTags(et)
+```
+
+Summarize Results
+===========================================================
+class: small-code
+```{r}
+summary(summaryde <- decideTestsDGE(et, p=0.05))
+summary(summaryde <- decideTestsDGE(et, p=0.05,lfc=1))
+```
+
+Correct p-values
+==========================================================
+class: small-code
+```{r}
+FDR <- p.adjust(et$table$PValue, method="BH")
+table_et <- cbind(et$table,FDR)
+
+```
+
+Save DEGs in a table
+==========================================================
+class: small-code
+```{r}
+table.de_et <- table_et[table_et$FDR<=0.05,]
+#write.csv(table.de_et,file="de_PDAC_hilo_gleason.csv")
+deg_FC <- table_et[table_et$FDR<=0.05 & abs(table_et$logFC)>=1,]
+#write.csv(deg_FC,file="de_PDAC_hilo_gleason_FC2.csv")
+```
+
+Make an MA plot
+==========================================================
+class: small-code
+```{r}
+labelled_points <- table_et[rownames(table.de_et),]
+
+g <- ggplot(table_et , aes(y = logFC, x = logCPM)) +
+  geom_point(shape = ".") +
+  geom_point(colour = "red", data = labelled_points,shape = ".") +
+  ggtitle("MAplot", subtitle = "high-low")
+```
+
+Make an MA plot
+==========================================================
+class: small-code
+```{r fig.align="center"}
+print(g)
+```
+
+Downstream analysis
+=========================================================
+- Observe in genome browser
+- Annotate DEG
+- Find biological processes that are enriched amongst the DEGs
+- Pathway analysis
+- Clustering analyses
+- Biological Validation
+- Network analyses
+
+Annotate genes using biomaRt
+==========================================================
+class: small-code
+```{r}
+library(biomaRt)
+listMarts()
+#choose ensembl dataset and filters to use
+ensembl=useMart("ensembl")
+ensembl = useMart(biomart = "ENSEMBL_MART_ENSEMBL",dataset="hsapiens_gene_ensembl", host = 'www.ensembl.org')
+filters = listFilters(ensembl)
+filters[1:5,]
+```
+Annotate genes using biomaRt
+==========================================================
+class: small-code
+```{r}
+attributes = listAttributes(ensembl)
+attributes[1:15,]
+filterOptions("ensembl_gene_id",ensembl)
+```
+
+Annotate genes using biomaRt
+==========================================================
+class: small-code
+```{r}
+background_genes <- rownames(table_et)
+degs <- rownames(table.de_et)
+
+bckgd.annot <- getBM(attributes=c('ensembl_gene_id','hgnc_symbol',                                'entrezgene_id','description','external_gene_name',
+                'chromosome_name','start_position','end_position','strand'), 
+                filters='ensembl_gene_id',values=background_genes,
+                mart=ensembl)
+```
+
+Annotate genes using biomaRt
+==========================================================
+class: small-code
+```{r}
+deg.annot <- getBM(attributes=c('ensembl_gene_id','hgnc_symbol','entrezgene_id',                  'description','external_gene_name','chromosome_name','start_position','end_position','strand'),
+                filters='ensembl_gene_id', values=degs, mart=ensembl)
+colnames(bckgd.annot)
+```
+
+Annotate genes using biomaRt
+==========================================================
+class: small-code
+```{r}
+deg_ann.tb = merge(x = table_et, y = bckgd.annot, by.x="row.names",by.y='ensembl_gene_id',all.x=TRUE)
+bckgd_ann.tb = merge(x = table.de_et, y = deg.annot, by.x="row.names",by.y='ensembl_gene_id',all.x=TRUE)
+#write.csv(bckgd_ann.tb, file="allgenesAnnotation.csv")
+#write.csv(deg_ann.tb, file="DEGAnnotation.csv")
+```
+
+Perform a pathway analysis and enrichment analysis
+==========================================================
+class: small-code
+```{r}
+library(enrichplot)
+library(clusterProfiler)
+library(org.Hs.eg.db)
+```
+
+Gene Ontology
+==========================================================
+- Ontology: a structured vocabulary
+  - Describes concepts that exist in an area of knowledge
+  - Describes relationships that exist
+- Gene Ontology (GO):
+  - Describes possible functions of genes
+  - Describes relationships between genes
+  - Describes where in the cell gene products are localized
+- GO is independent of organism!
+
+Gene Ontology
+==========================================================
+- structure: DAG 
+  - directed acyclic graph
+- relationships:
+  - is a
+  - has a
+  - part of
+<div class="midcenter" style="margin-left:-45px; margin-top:-200px;">
+<img src="./AnalysisOfGeneExpressionDataUsingR-figure/BPgo.png"></img>
+</div>
+
+Perform a GO enrichment analysis 
+==========================================================
+class: small-code
+```{r}
+cc.go <- enrichGO(gene          = deg_ann.tb$entrezgene_id,
+                OrgDb         = org.Hs.eg.db,
+                ont           = "CC",
+                pAdjustMethod = "BH",
+                qvalueCutoff  = 0.05,
+                readable      = TRUE)
+head(cc.go)
+#write.csv(cc.go,file="cc.go.csv")
+```
+
+Perform a GO enrichment analysis
+==========================================================
+class: small-code
+```{r}
+bp.go <- enrichGO(gene          = deg_ann.tb$entrezgene_id,
+                  OrgDb         = org.Hs.eg.db,
+                  ont           = "BP",
+                  pAdjustMethod = "BH",
+                  qvalueCutoff  = 0.05,
+                  readable      = TRUE)
+head(bp.go)
+#write.csv(bp.go,file="bp.go.csv")
+```
+
+Perform a GO enrichment analysis
+==========================================================
+class: small-code
+```{r fig.align="center", fig.width=13,fig.height=6}
+barplot(bp.go, showCategory=20)
+```
+
+Perform a GO enrichment analysis
+==========================================================
+class: small-code
+```{r}
+mf.go <- enrichGO(gene          = deg_ann.tb$entrezgene_id,
+                  OrgDb         = org.Hs.eg.db,
+                  ont           = "MF",
+                  pAdjustMethod = "BH",
+                  qvalueCutoff  = 0.05,
+                  readable      = TRUE)
+head(mf.go)
+#write.csv(bp.go,file="mf.go.csv")
+```
+
+
+Perform a KEGG pathway enrichment analysis
+==========================================================
+class: small-code
+```{r}
+kk <- enrichKEGG(gene         = deg_ann.tb$entrezgene_id,
+                 organism     = 'hsa',
+                 pAdjustMethod = "BH",
+                 qvalueCutoff  = 0.05)
+head(kk)
+#write.csv(kk,file="enrichedKeggPathways.csv")
+```
+
+Perform a KEGG pathway enrichment analysis
+==========================================================
+class: small-code
+```{r fig.align="center", fig.width=13,fig.height=6}
+dotplot(kk, showCategory=30) + ggtitle("dotplot for KEGG")
+```

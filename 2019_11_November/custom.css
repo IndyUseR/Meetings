@@ -1,0 +1,21 @@
+<style>
+.small-code pre code {
+  font-size: 1em;
+}
+.midcenter {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
+.rightbottom {
+    position: fixed;
+    bottom: 10%;
+    left: 100%;
+}
+.reveal section del{
+  color: red;
+.reveal h1, .reveal h2, .reveal h3 {
+  word-wrap: normal;
+  -moz-hyphens: none;
+}
+</style>
